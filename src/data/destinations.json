@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "city": "Paris",
+    "country": "France",
+    "description": "The city of lights and love.",
+    "deal": "20% off flights"
+  },
+  {
+    "id": 2,
+    "city": "Tokyo",
+    "country": "Japan",
+    "description": "A bustling hub of culture and technology.",
+    "deal": "15% off hotels"
+  },
+  {
+    "id": 3,
+    "city": "New York",
+    "country": "USA",
+    "description": "The city that never sleeps.",
+    "deal": "10% off attractions"
+  }
+]
