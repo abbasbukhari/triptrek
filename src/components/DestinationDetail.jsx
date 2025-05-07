@@ -1,7 +1,7 @@
 import React from "react";
 import { useWishlist } from "../context/WishlistContext";
 
-const DestinationCard = ({ destination }) => {
+const DestinationDetail = ({ destination }) => {
   const { wishlist, dispatch } = useWishlist();
 
   const isInWishlist = wishlist.some((item) => item.id === destination.id);
@@ -15,8 +15,8 @@ const DestinationCard = ({ destination }) => {
   };
 
   return (
-    <div className="destination-card">
-      <h3>{destination.city}, {destination.country}</h3>
+    <div className="destination-detail">
+      <h1>{destination.city}, {destination.country}</h1>
       <p>{destination.description}</p>
       <p><strong>Deal:</strong> {destination.deal}</p>
       <button onClick={handleToggleWishlist}>
@@ -26,4 +26,4 @@ const DestinationCard = ({ destination }) => {
   );
 };
 
-export default DestinationCard;
+export default DestinationDetail;

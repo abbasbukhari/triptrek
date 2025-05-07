@@ -1,22 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
-import Wishlist from "./pages/Wishlist";
+import Wishlist from "./components/Wishlist";
+import DestinationDetail from "./components/DestinationDetail";
+import destinationsData from "./data/destinations.json";
 import "./App.css";
 
 const App = () => {
-  const [wishlist, setWishlist] = useState([]);
-
-  const addToWishlist = (destination) => {
-    if (!wishlist.find((item) => item.id === destination.id)) {
-      setWishlist([...wishlist, destination]);
-    }
-  };
-
-  const removeFromWishlist = (id) => {
-    setWishlist(wishlist.filter((item) => item.id !== id));
-  };
-
   return (
     <Router>
       <nav>
@@ -24,10 +14,17 @@ const App = () => {
         <Link to="/wishlist">Wishlist</Link>
       </nav>
       <Routes>
-        <Route path="/" element={<Home onAddToWishlist={addToWishlist} />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/wishlist" element={<Wishlist />} />
         <Route
-          path="/wishlist"
-          element={<Wishlist wishlist={wishlist} onRemoveFromWishlist={removeFromWishlist} />}
+          path="/destination/:id"
+          element={
+            <DestinationDetail
+              destination={destinationsData.find(
+                (dest) => dest.id === parseInt(window.location.pathname.split("/").pop())
+              )}
+            />
+          }
         />
       </Routes>
     </Router>
