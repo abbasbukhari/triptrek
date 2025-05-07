@@ -1,5 +1,6 @@
 import React from "react";
 import { useWishlist } from "../context/WishlistContext";
+import "./Wishlist.module.css";
 
 const Wishlist = () => {
   const { wishlist, dispatch } = useWishlist();
@@ -14,14 +15,18 @@ const Wishlist = () => {
       {wishlist.length === 0 ? (
         <p>No destinations in your wishlist yet.</p>
       ) : (
-        wishlist.map((destination) => (
-          <div key={destination.id} className="wishlist-item">
-            <h3>{destination.city}, {destination.country}</h3>
-            <button onClick={() => handleRemoveFromWishlist(destination.id)}>
-              Remove
-            </button>
-          </div>
-        ))
+        <div className="wishlist-grid">
+          {wishlist.map((item) => (
+            <div key={item.id} className="wishlist-item">
+              <h3>{item.city}, {item.country}</h3>
+              <p><strong>Description:</strong> {item.description}</p>
+              <p><strong>Deal:</strong> {item.deal}</p>
+              <button onClick={() => handleRemoveFromWishlist(item.id)}>
+                Remove from Wishlist
+              </button>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );

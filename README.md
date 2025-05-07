@@ -38,7 +38,11 @@ triptrek/
 ├── src/
 │   ├── components/
 │   │   ├── DestinationCard.jsx
-│   │   └── Wishlist.jsx
+│   │   ├── DestinationDetail.jsx
+│   │   ├── Wishlist.jsx
+│   │   └── Wishlist.module.css
+│   ├── context/
+│   │   └── WishlistContext.js
 │   ├── data/
 │   │   └── destinations.json
 │   ├── pages/
@@ -46,7 +50,8 @@ triptrek/
 │   │   └── Wishlist.jsx
 │   ├── App.jsx
 │   ├── index.js
-│   └── App.css
+│   ├── App.css
+│   └── index.css
 └── README.md
 ```
 

@@ -105,24 +105,35 @@ body {
   color: #333;
 }
 
+.deals {
+  padding: 20px;
+}
+
 .deals-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
 }
 
 .deal-card {
-  background-color: white;
   border: 1px solid #ddd;
   border-radius: 8px;
-  padding: 20px;
+  padding: 16px;
   text-align: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.deal-card button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
   cursor: pointer;
 }
 
-.deal-card:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.deal-card button:hover {
+  background-color: #0056b3;
 }
 
 /* Destinations Section */

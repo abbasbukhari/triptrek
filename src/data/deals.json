@@ -1,0 +1,22 @@
+{
+  "flights": [
+    { "id": 1, "city": "Paris", "deal": "20% off flights", "description": "Fly to Paris and experience the Eiffel Tower, fine dining, and romantic walks along the Seine." },
+    { "id": 2, "city": "Tokyo", "deal": "15% off flights", "description": "Discover Tokyo's vibrant culture, cutting-edge technology, and world-class cuisine." },
+    { "id": 3, "city": "New York", "deal": "10% off flights", "description": "Visit the Big Apple and explore Times Square, Central Park, and the Statue of Liberty." }
+  ],
+  "stays": [
+    { "id": 4, "city": "Paris", "deal": "30% off hotels", "description": "Stay in luxurious Parisian hotels with breathtaking views of the Eiffel Tower." },
+    { "id": 5, "city": "Tokyo", "deal": "25% off hotels", "description": "Enjoy comfortable stays in Tokyo's top-rated hotels, close to major attractions." },
+    { "id": 6, "city": "New York", "deal": "20% off hotels", "description": "Book a stay in New York's finest hotels, located in the heart of the city." }
+  ],
+  "cars": [
+    { "id": 7, "city": "Paris", "deal": "15% off car rentals", "description": "Rent a car in Paris and explore the French countryside at your own pace." },
+    { "id": 8, "city": "Tokyo", "deal": "10% off car rentals", "description": "Drive through Tokyo and nearby cities with affordable car rental options." },
+    { "id": 9, "city": "New York", "deal": "20% off car rentals", "description": "Get around New York City with ease by renting a car at discounted rates." }
+  ],
+  "flightHotels": [
+    { "id": 10, "city": "Paris", "deal": "25% off flight + hotel packages", "description": "Save big on flight and hotel packages for your dream trip to Paris." },
+    { "id": 11, "city": "Tokyo", "deal": "20% off flight + hotel packages", "description": "Book a complete travel package to Tokyo and enjoy exclusive discounts." },
+    { "id": 12, "city": "New York", "deal": "15% off flight + hotel packages", "description": "Plan your New York adventure with bundled flight and hotel deals." }
+  ]
+}

@@ -1,23 +1,27 @@
 /* filepath: /Users/abbas/Desktop/Code/Lighthouse_Labs/final_project/triptrek/src/components/Wishlist.module.css */
 .wishlist {
-  padding: 16px;
+  padding: 20px;
 }
 
 .wishlist h2 {
   margin-bottom: 16px;
 }
 
-.item {
+.wishlist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.wishlist-item {
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 16px;
-  margin: 8px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.item button {
+.wishlist-item button {
   background-color: #dc3545;
   color: white;
   border: none;
@@ -26,6 +30,6 @@
   cursor: pointer;
 }
 
-.item button:hover {
+.wishlist-item button:hover {
   background-color: #a71d2a;
 }

@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useWishlist } from "../context/WishlistContext";
+import dealsData from "../data/deals.json";
 import "./Home.css";
 
 const Home = () => {
   const { wishlist, dispatch } = useWishlist();
+  const [selectedCategory, setSelectedCategory] = useState("flights");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+  const [departureDate, setDepartureDate] = useState("");
 
   const popularDestinations = [
     { id: 1, city: "Paris", country: "France", description: "The city of lights and love.", deal: "20% off flights" },
@@ -21,6 +27,10 @@ const Home = () => {
     }
   };
 
+  const deals = dealsData[selectedCategory].filter((deal) =>
+    deal.city.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="home">
       {/* Hero Section */}
@@ -28,16 +38,30 @@ const Home = () => {
         <h1>Explore travel deals and create your wishlist.</h1>
         <div className="search-bar">
           <div>
-            <button>Flights</button>
-            <button>Stays</button>
-            <button>Cars</button>
-            <button>Flight+Hotel</button>
+            <button onClick={() => setSelectedCategory("flights")}>Flights</button>
+            <button onClick={() => setSelectedCategory("stays")}>Stays</button>
+            <button onClick={() => setSelectedCategory("cars")}>Cars</button>
+            <button onClick={() => setSelectedCategory("flightHotels")}>Flight+Hotel</button>
           </div>
           <div className="search-inputs">
-            <input type="text" placeholder="From?" />
-            <input type="text" placeholder="To?" />
-            <input type="date" placeholder="Departure" />
-            <input type="date" placeholder="Return" />
+            <input
+              type="text"
+              placeholder="From?"
+              value={from}
+              onChange={(e) => setFrom(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="To?"
+              value={to}
+              onChange={(e) => setTo(e.target.value)}
+            />
+            <input
+              type="date"
+              placeholder="Departure"
+              value={departureDate}
+              onChange={(e) => setDepartureDate(e.target.value)}
+            />
             <button className="search-button">Search</button>
           </div>
         </div>
@@ -59,17 +83,18 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Travel Deals Section */}
-      <section className="travel-deals">
-        <h2>Popular Destinations</h2>
+
+      {/* Deals Section */}
+      <section className="deals">
+        <h2>Hottest Deals for {selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)}</h2>
         <div className="deals-grid">
-          {popularDestinations.map((destination) => {
-            const isInWishlist = wishlist.some((item) => item.id === destination.id);
+          {deals.map((deal) => {
+            const isInWishlist = wishlist.some((item) => item.id === deal.id);
             return (
-              <div key={destination.id} className="deal-card">
-                <h3>{destination.city}</h3>
-                <p>{destination.description}</p>
-                <button onClick={() => handleToggleWishlist(destination)}>
+              <div key={deal.id} className="deal-card">
+                <h3>{deal.city}</h3>
+                <p>{deal.deal}</p>
+                <button onClick={() => handleToggleWishlist(deal)}>
                   {isInWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
                 </button>
               </div>
