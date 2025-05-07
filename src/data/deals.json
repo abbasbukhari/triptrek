@@ -1,8 +1,10 @@
 {
   "flights": [
-    { "id": 1, "city": "Paris", "deal": "20% off flights", "description": "Fly to Paris and experience the Eiffel Tower, fine dining, and romantic walks along the Seine." },
-    { "id": 2, "city": "Tokyo", "deal": "15% off flights", "description": "Discover Tokyo's vibrant culture, cutting-edge technology, and world-class cuisine." },
-    { "id": 3, "city": "New York", "deal": "10% off flights", "description": "Visit the Big Apple and explore Times Square, Central Park, and the Statue of Liberty." }
+    { "id": 1, "city": "Paris", "deal": "20% off flights", "description": "Fly to Paris and experience the Eiffel Tower, fine dining, and romantic walks along the Seine.","from": "Canada", "to": "France"  },
+    { "id": 2, "city": "Tokyo", "deal": "15% off flights", "description": "Discover Tokyo's vibrant culture, cutting-edge technology, and world-class cuisine.", "from": "Canada", "to": "Japan"  },
+    { "id": 3, "city": "New York", "deal": "10% off flights", "description": "Visit the Big Apple and explore Times Square, Central Park, and the Statue of Liberty.", "from": "Canada", "to": "USA"  },
+    { "id": 4, "city": "Sydney", "deal": "25% off flights", "description": "Vist Sydney", "from": "Canada", "to": "Australia" },
+    { "id": 5, "city": "Toronto", "deal": "30% off flights", "description": "Vist Toronto.", "from": "USA", "to": "Canada" }
   ],
   "stays": [
     { "id": 4, "city": "Paris", "deal": "30% off hotels", "description": "Stay in luxurious Parisian hotels with breathtaking views of the Eiffel Tower." },
