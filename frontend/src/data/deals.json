@@ -1,24 +1,153 @@
 {
   "flights": [
-    { "id": 1, "city": "Paris", "deal": "20% off flights", "description": "Fly to Paris and experience the Eiffel Tower, fine dining, and romantic walks along the Seine.","from": "Canada", "to": "France"  },
-    { "id": 2, "city": "Tokyo", "deal": "15% off flights", "description": "Discover Tokyo's vibrant culture, cutting-edge technology, and world-class cuisine.", "from": "Canada", "to": "Japan"  },
-    { "id": 3, "city": "New York", "deal": "10% off flights", "description": "Visit the Big Apple and explore Times Square, Central Park, and the Statue of Liberty.", "from": "Canada", "to": "USA"  },
-    { "id": 4, "city": "Sydney", "deal": "25% off flights", "description": "Vist Sydney", "from": "Canada", "to": "Australia" },
-    { "id": 5, "city": "Toronto", "deal": "30% off flights", "description": "Vist Toronto.", "from": "USA", "to": "Canada" }
+    {
+      "id": 1,
+      "city": "Paris",
+      "deal": "20% off flights",
+      "description": "Fly to Paris and experience the Eiffel Tower, fine dining, and romantic walks along the Seine.",
+      "from": "Canada",
+      "to": "France",
+      "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80",
+      "lat": 48.8566,
+      "lng": 2.3522
+    },
+    {
+      "id": 2,
+      "city": "Tokyo",
+      "deal": "15% off flights",
+      "description": "Discover Tokyo's vibrant culture, cutting-edge technology, and world-class cuisine.",
+      "from": "Canada",
+      "to": "Japan",
+      "image": "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80",
+      "lat": 35.6895,
+      "lng": 139.6917
+    },
+    {
+      "id": 3,
+      "city": "New York",
+      "deal": "10% off flights",
+      "description": "Visit the Big Apple and explore Times Square, Central Park, and the Statue of Liberty.",
+      "from": "Canada",
+      "to": "USA",
+      "image": "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=800&q=80",
+      "lat": 40.7128,
+      "lng": -74.0060
+    },
+    {
+      "id": 4,
+      "city": "Hong Kong",
+      "deal": "25% off flights",
+      "description": "Visit Hong Kong",
+      "from": "Canada",
+      "to": "China",
+      "image": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+      "lat": 22.3193,
+      "lng": 114.1694
+    },
+    {
+      "id": 5,
+      "city": "Toronto",
+      "deal": "30% off flights",
+      "description": "Visit Toronto.",
+      "from": "USA",
+      "to": "Canada",
+      "image": "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80",
+      "lat": 43.651070,
+      "lng": -79.347015
+    }
   ],
   "stays": [
-    { "id": 4, "city": "Paris", "deal": "30% off hotels", "description": "Stay in luxurious Parisian hotels with breathtaking views of the Eiffel Tower." },
-    { "id": 5, "city": "Tokyo", "deal": "25% off hotels", "description": "Enjoy comfortable stays in Tokyo's top-rated hotels, close to major attractions." },
-    { "id": 6, "city": "New York", "deal": "20% off hotels", "description": "Book a stay in New York's finest hotels, located in the heart of the city." }
-  ],
-  "cars": [
-    { "id": 7, "city": "Paris", "deal": "15% off car rentals", "description": "Rent a car in Paris and explore the French countryside at your own pace." },
-    { "id": 8, "city": "Tokyo", "deal": "10% off car rentals", "description": "Drive through Tokyo and nearby cities with affordable car rental options." },
-    { "id": 9, "city": "New York", "deal": "20% off car rentals", "description": "Get around New York City with ease by renting a car at discounted rates." }
+    {
+      "id": 1,
+      "city": "Paris",
+      "deal": "30% off hotels",
+      "description": "Stay in luxurious Parisian hotels with breathtaking views of the Eiffel Tower.",
+      "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80",
+      "lat": 48.8566,
+      "lng": 2.3522
+    },
+    {
+      "id": 2,
+      "city": "Tokyo",
+      "deal": "25% off hotels",
+      "description": "Enjoy comfortable stays in Tokyo's top-rated hotels, close to major attractions.",
+      "image": "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80",
+      "lat": 35.6895,
+      "lng": 139.6917
+    },
+    {
+      "id": 3,
+      "city": "New York",
+      "deal": "20% off hotels",
+      "description": "Book a stay in New York's finest hotels, located in the heart of the city.",
+      "image": "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=800&q=80",
+      "lat": 40.7128,
+      "lng": -74.0060
+    },
+    {
+      "id": 4,
+      "city": "Hong Kong",
+      "deal": "28% off hotels",
+      "description": "Enjoy Hong Kong's best hotels with stunning views of Victoria Harbour.",
+      "image": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+      "lat": 22.3193,
+      "lng": 114.1694
+    },
+    {
+      "id": 5,
+      "city": "Toronto",
+      "deal": "22% off hotels",
+      "description": "Stay in the heart of Toronto with exclusive hotel discounts.",
+      "image": "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80",
+      "lat": 43.651070,
+      "lng": -79.347015
+    }
   ],
   "flightHotels": [
-    { "id": 10, "city": "Paris", "deal": "25% off flight + hotel packages", "description": "Save big on flight and hotel packages for your dream trip to Paris." },
-    { "id": 11, "city": "Tokyo", "deal": "20% off flight + hotel packages", "description": "Book a complete travel package to Tokyo and enjoy exclusive discounts." },
-    { "id": 12, "city": "New York", "deal": "15% off flight + hotel packages", "description": "Plan your New York adventure with bundled flight and hotel deals." }
+    {
+      "id": 10,
+      "city": "Paris",
+      "deal": "25% off flight + hotel packages",
+      "description": "Save big on flight and hotel packages for your dream trip to Paris.",
+      "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80",
+      "lat": 48.8566,
+      "lng": 2.3522
+    },
+    {
+      "id": 11,
+      "city": "Tokyo",
+      "deal": "20% off flight + hotel packages",
+      "description": "Book a complete travel package to Tokyo and enjoy exclusive discounts.",
+      "image": "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80",
+      "lat": 35.6895,
+      "lng": 139.6917
+    },
+    {
+      "id": 12,
+      "city": "New York",
+      "deal": "15% off flight + hotel packages",
+      "description": "Plan your New York adventure with bundled flight and hotel deals.",
+      "image": "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=800&q=80",
+      "lat": 40.7128,
+      "lng": -74.0060
+    },
+    {
+      "id": 13,
+      "city": "Hong Kong",
+      "deal": "18% off flight + hotel packages",
+      "description": "Get the best of Hong Kong with combined flight and hotel savings.",
+      "image": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+      "lat": 22.3193,
+      "lng": 114.1694
+    },
+    {
+      "id": 14,
+      "city": "Toronto",
+      "deal": "20% off flight + hotel packages",
+      "description": "Toronto travel made easy with flight and hotel deals.",
+      "image": "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80",
+      "lat": 43.651070,
+      "lng": -79.347015
+    }
   ]
 }

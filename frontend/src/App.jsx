@@ -56,6 +56,14 @@ const App = () => {
             </RequireAuth>
           }
         />
+        {/* <Route
+          path="/flights"
+          element={
+            <RequireAuth>
+              <FlightSearch />
+            </RequireAuth>
+          }
+        /> */}
       </Routes>
     </Router>
   );
