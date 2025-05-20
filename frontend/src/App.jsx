@@ -4,7 +4,9 @@ import Home from "./pages/Home";
 import Wishlist from "./components/Wishlist";
 import DestinationDetail from "./components/DestinationDetail";
 import Login from "./components/Login";
+import FlightSearch from "./components/FlightSearch";
 import destinationsData from "./data/destinations.json";
+import { WishlistProvider } from "./context/WishlistContext"; // <-- import your provider
 import "./App.css";
 
 const App = () => {
@@ -21,51 +23,53 @@ const App = () => {
   }
 
   return (
-    <Router>
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/wishlist">Wishlist</Link>
-      </nav>
-      <Routes>
-        <Route path="/login" element={<Login setLoggedIn={setLoggedIn} />} />
-        <Route
-          path="/"
-          element={
-            <RequireAuth>
-              <Home />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/wishlist"
-          element={
-            <RequireAuth>
-              <Wishlist />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/destination/:id"
-          element={
-            <RequireAuth>
-              <DestinationDetail
-                destination={destinationsData.find(
-                  (dest) => dest.id === parseInt(window.location.pathname.split("/").pop())
-                )}
-              />
-            </RequireAuth>
-          }
-        />
-        {/* <Route
-          path="/flights"
-          element={
-            <RequireAuth>
-              <FlightSearch />
-            </RequireAuth>
-          }
-        /> */}
-      </Routes>
-    </Router>
+    <WishlistProvider>
+      <Router>
+        <nav>
+          <Link to="/">Home</Link>
+          <Link to="/wishlist">Wishlist</Link>
+        </nav>
+        <Routes>
+          <Route path="/login" element={<Login setLoggedIn={setLoggedIn} />} />
+          <Route
+            path="/"
+            element={
+              <RequireAuth>
+                <Home />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/wishlist"
+            element={
+              <RequireAuth>
+                <Wishlist />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/destination/:id"
+            element={
+              <RequireAuth>
+                <DestinationDetail
+                  destination={destinationsData.find(
+                    (dest) => dest.id === parseInt(window.location.pathname.split("/").pop())
+                  )}
+                />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/flights"
+            element={
+              <RequireAuth>
+                <FlightSearch />
+              </RequireAuth>
+            }
+          />
+        </Routes>
+      </Router>
+    </WishlistProvider>
   );
 };
 

@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { WishlistProvider } from "./context/WishlistContext";
+import WishlistContext from './context/WishlistContext.jsx';
 
 ReactDOM.render(
   <React.StrictMode>
-    <WishlistProvider>
+    <WishlistContext>
       <App />
-    </WishlistProvider>
+    </WishlistContext>
   </React.StrictMode>,
   document.getElementById("root")
 );
