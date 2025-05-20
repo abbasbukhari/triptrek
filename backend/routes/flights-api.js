@@ -45,4 +45,41 @@ router.get('/oneway', async (req, res) => {
   }
 });
 
+router.get('/roundtrip', async (req, res) => {
+  const {
+    departure_airport_code,
+    arrival_airport_code,
+    departure_date,
+    arrival_date,
+    number_of_adults,
+    number_of_childrens,
+    number_of_infants,
+    cabin_class,
+    currency,
+    region
+  } = req.query;
+
+  if (
+    !departure_airport_code || !arrival_airport_code || !departure_date || !arrival_date ||
+    !number_of_adults || !number_of_childrens || !number_of_infants ||
+    !cabin_class || !currency || !region
+  ) {
+    return res.status(400).json({ error: 'Missing required parameters' });
+  }
+
+  const apiUrl = `https://api.flightapi.io/roundtrip/${FLIGHT_API_KEY}/${departure_airport_code}/${arrival_airport_code}/${departure_date}/${arrival_date}/${number_of_adults}/${number_of_childrens}/${number_of_infants}/${cabin_class}/${currency}`;
+
+  try {
+    const response = await axios.get(apiUrl, { params: { region } });
+    res.json(response.data);
+  } catch (error) {
+    if (error.response) {
+      console.error('Flight API error:', error.response.status, error.response.data);
+      res.status(error.response.status).json({ error: error.response.data });
+    } else {
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  }
+});
+
 module.exports = router;
