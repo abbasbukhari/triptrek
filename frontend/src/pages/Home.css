@@ -262,6 +262,219 @@ body {
   background: #0056b3;
 }
 
+/* Tab Bar */
+.tab-bar {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.tab-bar button {
+  background: #f0f8ff;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  font-weight: 600;
+  color: #333;
+  transition: background 0.2s;
+}
+
+.tab-bar button.active {
+  background: #007bff;
+  color: #fff;
+}
+
+/* Hotel Search Section */
+.hotel-search-section {
+  background: url('/hotel-hero.jpg') center/cover no-repeat; /* Use your own image path */
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hotel-search-bar {
+  background: rgba(10, 30, 60, 0.85);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.hotel-search-bar form {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.hotel-search-bar input,
+.hotel-search-bar select {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+}
+
+.hotel-search-bar button {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.hotel-search-bar button:hover {
+  background: #0056b3;
+}
+
+/* Skyscanner Header */
+.skyscanner-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: #042759;
+  color: white;
+}
+
+.auth-controls {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.auth-controls button {
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.login-btn {
+  background-color: white !important;
+  color: #042759 !important;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.main-navigation {
+  display: flex;
+  background-color: #042759;
+  padding: 0 30px;
+}
+
+.nav-tab {
+  padding: 15px 25px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px 8px 0 0;
+}
+
+.nav-tab.active {
+  background-color: #0770e3;
+}
+
+/* Enhanced Hero Section */
+.hero-section {
+  background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e');
+  background-size: cover;
+  background-position: center;
+  padding: 60px 30px;
+  color: white;
+}
+
+.hero-title {
+  font-size: 42px;
+  max-width: 800px;
+  margin-bottom: 40px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Hotel Search Container */
+.hotel-search-container {
+  background-color: #042759;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 1200px;
+}
+
+.search-fields {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.search-field.destination {
+  flex: 2;
+}
+
+.search-field label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.search-field input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.search-btn {
+  background-color: #0770e3;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  align-self: flex-end;
+}
+
+/* Preserve your existing styles */
+
+.view-toggle {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.view-toggle button {
+  padding: 8px 20px;
+  border: 1px solid #0770e3;
+  background: white;
+  color: #0770e3;
+  cursor: pointer;
+}
+
+.view-toggle button.active {
+  background-color: #0770e3;
+  color: white;
+}
+
 @media (max-width: 600px) {
   .deals-grid {
     grid-template-columns: 1fr;

@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
+import './FlightSearch.css';
 
-export default function FlightSearch() {
-  const [from, setFrom] = useState('');
-  const [to, setTo] = useState('');
-  const [date, setDate] = useState('');
+const FlightSearch = () => {
+  const [tripType, setTripType] = useState('roundtrip');
+  const [fromAirport, setFromAirport] = useState('');
+  const [toAirport, setToAirport] = useState('');
+  const [departDate, setDepartDate] = useState('');
   const [returnDate, setReturnDate] = useState('');
-  const [tripType, setTripType] = useState('oneway');
+  const [passengers, setPassengers] = useState('1 adult, Economy');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [flightData, setFlightData] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (from === to) {
+    if (fromAirport === toAirport) {
       setError('Departure and arrival airports must be different.');
       return;
     }
@@ -22,9 +24,9 @@ export default function FlightSearch() {
 
     let url = '';
     if (tripType === 'oneway') {
-      url = `/api/flights/oneway?departure_airport_code=${from}&arrival_airport_code=${to}&departure_date=${date}&number_of_adults=1&number_of_children=0&number_of_infants=0&cabin_class=Economy&currency=USD&region=US`;
+      url = `/api/flights/oneway?departure_airport_code=${fromAirport}&arrival_airport_code=${toAirport}&departure_date=${departDate}&number_of_adults=1&number_of_children=0&number_of_infants=0&cabin_class=Economy&currency=USD&region=US`;
     } else {
-      url = `/api/flights/roundtrip?departure_airport_code=${from}&arrival_airport_code=${to}&departure_date=${date}&arrival_date=${returnDate}&number_of_adults=1&number_of_childrens=0&number_of_infants=0&cabin_class=Economy&currency=USD&region=US`;
+      url = `/api/flights/roundtrip?departure_airport_code=${fromAirport}&arrival_airport_code=${toAirport}&departure_date=${departDate}&arrival_date=${returnDate}&number_of_adults=1&number_of_childrens=0&number_of_infants=0&cabin_class=Economy&currency=USD&region=US`;
     }
 
     try {
@@ -51,58 +53,97 @@ export default function FlightSearch() {
   ];
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>
-            <input
-              type="radio"
-              value="oneway"
-              checked={tripType === 'oneway'}
-              onChange={() => setTripType('oneway')}
-            />
-            One Way
-          </label>
-          <label>
-            <input
-              type="radio"
-              value="roundtrip"
-              checked={tripType === 'roundtrip'}
-              onChange={() => setTripType('roundtrip')}
-            />
-            Round Trip
-          </label>
-        </div>
-        <select value={from} onChange={e => setFrom(e.target.value)} required>
-          <option value="">From (Select Airport)</option>
-          {airportOptions.map(opt => (
-            <option key={opt.code} value={opt.code}>{opt.name}</option>
-          ))}
-        </select>
-        <select value={to} onChange={e => setTo(e.target.value)} required>
-          <option value="">To (Select Airport)</option>
-          {airportOptions.map(opt => (
-            <option key={opt.code} value={opt.code}>{opt.name}</option>
-          ))}
-        </select>
-        <input
-          type="date"
-          value={date}
-          onChange={e => setDate(e.target.value)}
-          required
-        />
-        {tripType === 'roundtrip' && (
-          <input
-            type="date"
-            value={returnDate}
-            onChange={e => setReturnDate(e.target.value)}
-            required
-            min={date}
-            placeholder="Return Date"
+    <div className="flight-search-container">
+      <div className="trip-type-selector">
+        <label className={tripType === 'roundtrip' ? 'active' : ''}>
+          <input 
+            type="radio" 
+            value="roundtrip" 
+            checked={tripType === 'roundtrip'}
+            onChange={() => setTripType('roundtrip')}
           />
-        )}
-        <button type="submit" disabled={loading}>
-          {loading ? 'Searching...' : 'Search Flights'}
+          Roundtrip
+        </label>
+        <label className={tripType === 'oneway' ? 'active' : ''}>
+          <input 
+            type="radio" 
+            value="oneway" 
+            checked={tripType === 'oneway'}
+            onChange={() => setTripType('oneway')}
+          />
+          One Way
+        </label>
+      </div>
+
+      <form onSubmit={handleSubmit}>
+        <div className="search-fields">
+          <div className="search-field from">
+            <label>From</label>
+            <select 
+              value={fromAirport} 
+              onChange={(e) => setFromAirport(e.target.value)} 
+              required
+            >
+              <option value="">Select airport</option>
+              <option value="YYZ">Toronto (YYZ)</option>
+              <option value="YVR">Vancouver (YVR)</option>
+              <option value="JFK">New York (JFK)</option>
+              <option value="LAX">Los Angeles (LAX)</option>
+              <option value="LHR">London (LHR)</option>
+            </select>
+          </div>
+
+          <div className="search-field to">
+            <label>To</label>
+            <select 
+              value={toAirport} 
+              onChange={(e) => setToAirport(e.target.value)} 
+              required
+            >
+              <option value="">Select airport</option>
+              <option value="YYZ">Toronto (YYZ)</option>
+              <option value="YVR">Vancouver (YVR)</option>
+              <option value="JFK">New York (JFK)</option>
+              <option value="LAX">Los Angeles (LAX)</option>
+              <option value="LHR">London (LHR)</option>
+            </select>
+          </div>
+
+          <div className="search-field">
+            <label>Depart</label>
+            <input 
+              type="date" 
+              value={departDate}
+              onChange={(e) => setDepartDate(e.target.value)}
+              required
+            />
+          </div>
+
+          {tripType === 'roundtrip' && (
+            <div className="search-field">
+              <label>Return</label>
+              <input 
+                type="date" 
+                value={returnDate}
+                onChange={(e) => setReturnDate(e.target.value)}
+                required
+              />
+            </div>
+          )}
+
+          <div className="search-field">
+            <label>Travelers and cabin class</label>
+            <input 
+              type="text" 
+              placeholder="1 adult, Economy"
+              value={passengers}
+              onChange={(e) => setPassengers(e.target.value)}
+            />
+          </div>
+        </div>
+
+        <button type="submit" className="search-btn" disabled={loading}>
+          {loading ? 'Searching...' : 'Search flights'}
         </button>
       </form>
       {error && <div style={{ color: 'red' }}>{error}</div>}
@@ -161,4 +202,6 @@ export default function FlightSearch() {
       </ul>
     </div>
   );
-}
+};
+
+export default FlightSearch;
