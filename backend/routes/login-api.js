@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
+// modified login api to use the database
+const bcrypt = require('bcrypt');
+const db = require('../db/connection');
+
 // Dummy credentials for demonstration
 const DUMMY_USER = {
   username: 'testuser',
