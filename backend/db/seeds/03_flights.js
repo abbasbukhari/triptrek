@@ -63,3 +63,23 @@ exports.seed = async function(knex) {
     }
   ]);
 };
+
+// user schema for flights
+exports.up = function(knex) {
+  return knex.schema.createTable('flights', function(table) {
+    table.increments('id').primary();
+    table.string('airline').notNullable();
+    table.string('flight_number').notNullable();
+    table.string('from_airport').notNullable();
+    table.string('to_airport').notNullable();
+    table.date('departure_date').notNullable();
+    table.time('departure_time').notNullable();
+    table.time('arrival_time').notNullable();
+    table.decimal('price', 10, 2).notNullable();
+    table.timestamps(true, true);
+  });
+};
+
+exports.down = function(knex) {
+  return knex.schema.dropTable('flights');
+};
