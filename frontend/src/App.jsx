@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link, Navigate, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Wishlist from "./components/Wishlist";
@@ -12,6 +12,14 @@ import "./App.css";
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
 
+  // Check for existing session on app load
+  useEffect(() => {
+    const userId = sessionStorage.getItem("userId");
+    if (userId) {
+      setLoggedIn(true);
+    }
+  }, []);
+
   // A wrapper for protected routes
   function RequireAuth({ children }) {
     let location = useLocation();
@@ -21,6 +29,13 @@ const App = () => {
     }
     return children;
   }
+
+  // Add logout functionality
+  const handleLogout = () => {
+    sessionStorage.removeItem("userId");
+    sessionStorage.removeItem("username");
+    setLoggedIn(false);
+  };
 
   return (
     <WishlistProvider>
