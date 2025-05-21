@@ -56,3 +56,21 @@ exports.seed = async function(knex) {
     }
   ]);
 };
+
+// user schema for destinations and flights
+exports.up = function(knex) {
+  return knex.schema.createTable('destinations', function(table) {
+    table.increments('id').primary();
+    table.string('city').notNullable();
+    table.string('country').notNullable();
+    table.text('description');
+    table.string('deal');
+    table.float('lat');
+    table.float('lng');
+    table.timestamps(true, true);
+  });
+};
+
+exports.down = function(knex) {
+  return knex.schema.dropTable('destinations');
+};
