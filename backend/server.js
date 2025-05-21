@@ -6,6 +6,10 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 
+//updated for flight sim
+const path = require('path');
+require('dotenv').config();
+
 const PORT = process.env.PORT || 8080;
 const app = express();
 
@@ -27,6 +31,11 @@ const widgetApiRoutes = require('./routes/widgets-api');
 const usersRoutes = require('./routes/users');
 const loginApiRoutes = require('./routes/login-api');
 
+// new routes added
+const flightsApiRoutes = require('./routes/flights-api');
+const flightsSimRoutes = require('./routes/flights-sim');
+const flightsGptRoutes = require('./routes/flights-gpt');
+
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
@@ -35,6 +44,9 @@ app.use('/api/widgets', widgetApiRoutes);
 app.use('/users', usersRoutes);
 app.use('/api/login', loginApiRoutes);
 // Note: mount other resources here, using the same pattern above
+app.use('/api/flights', flightsApiRoutes);
+app.use('/api/flights-sim', flightsSimRoutes);
+app.use('/api/flights-gpt', flightsGptRoutes);
 
 // Home page
 // Warning: avoid creating more routes in this file!
