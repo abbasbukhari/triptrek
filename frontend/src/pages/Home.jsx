@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useWishlist } from "../context/WishlistContext";
 import dealsData from "../data/deals.json";
 import FlightSearch from "../components/FlightSearch";
+import HotelSearch from "../components/HotelSearch";
 import OSMMapView from "../components/OSMMapView";
 import "./Home.css";
 
@@ -38,7 +39,7 @@ const Home = () => {
           <button className="language-btn">English (US)</button>
           <button className="currency-btn">C$ CAD</button>
           <button className="wishlist-btn">❤️</button>
-          <button className="login-btn">Log in</button>
+          <button className="login-btn">Log out</button>
         </div>
       </div>
 
@@ -71,32 +72,9 @@ const Home = () => {
 
         {/* Hotel Search Feature */}
         {activeTab === "hotels" && (
-          <div className="hotel-search-container">
-            <div className="search-fields">
-              <div className="search-field destination">
-                <label>Where would you like to stay?</label>
-                <input 
-                  type="text" 
-                  placeholder="Enter destination or hotel name"
-                  value={search}
-                  onChange={e => setSearch(e.target.value)}
-                />
-              </div>
-              <div className="search-field">
-                <label>Check-in</label>
-                <input type="text" placeholder="5/24/25" />
-              </div>
-              <div className="search-field">
-                <label>Check-out</label>
-                <input type="text" placeholder="5/31/25" />
-              </div>
-              <div className="search-field">
-                <label>Guests and rooms</label>
-                <input type="text" placeholder="1 adult, 1 room" />
-              </div>
-            </div>
-            <button className="search-btn">Search hotels</button>
-          </div>
+          <section className="hotel-search-section">
+            <HotelSearch />
+          </section>
         )}
       </div>
 
