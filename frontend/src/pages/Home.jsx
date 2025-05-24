@@ -10,6 +10,10 @@ const Home = () => {
   const [search, setSearch] = useState("");
   const [view, setView] = useState("list"); // "list" or "map"
 
+  // improved search handling
+  const [mapCenter, setMapCenter] = useState([45.4215, -75.6972]);
+const [mapZoom, setMapZoom] = useState(2);
+
   // Combine all deals for demo; filter as needed
   const allDeals = Object.values(dealsData).flat();
   const filteredDeals = allDeals.filter(deal =>
