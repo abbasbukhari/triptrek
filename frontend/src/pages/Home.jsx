@@ -20,6 +20,26 @@ const [mapZoom, setMapZoom] = useState(2);
     deal.city.toLowerCase().includes(search.toLowerCase())
   );
 
+  // Modify the search handling
+const handleSearch = () => {
+  if (filteredDeals.length > 0) {
+    const firstResult = filteredDeals[0];
+    if (firstResult.lat && firstResult.lng) {
+      setMapCenter([firstResult.lat, firstResult.lng]);
+      setMapZoom(6); // Zoom in when searching
+      setView("map"); // Switch to map view
+    }
+  }
+};
+
+// Update the search input's onChange to reset zoom when clearing
+const handleSearchChange = (e) => {
+  setSearch(e.target.value);
+  if (e.target.value === "") {
+    setMapZoom(2); // Reset zoom when clearing search
+  }
+};
+
   const handleToggleWishlist = (deal) => {
     const isInWishlist = wishlist.some((item) => item.id === deal.id);
     if (isInWishlist) {
