@@ -68,7 +68,7 @@ const handleSearchChange = (e) => {
             type="text"
             placeholder="Search destinations..."
             value={search}
-            onChange={e => setSearch(e.target.value)}
+            onChange={handleSearchChange}
           />
           <button className="large-search-btn" onClick={handleSearch}>
             <span role="img" aria-label="search">🔍</span> Search
