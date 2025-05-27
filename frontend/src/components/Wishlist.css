@@ -1,0 +1,375 @@
+.wishlist {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.wishlist h2 {
+  color: #042759;
+  font-size: 28px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.wishlist-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.wishlist-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.wishlist-title {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.wishlist-title h1 {
+  font-size: 2rem;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.wishlist-count {
+  color: var(--text-light);
+  font-size: 1rem;
+}
+
+.clear-btn {
+  padding: 0.6rem 1.2rem;
+  border: 1px solid #ff5252;
+  background-color: transparent;
+  color: #ff5252;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.clear-btn:hover {
+  background-color: #ff5252;
+  color: white;
+}
+
+.wishlist-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.wishlist-filters button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  background-color: var(--background-light);
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  color: var(--text-medium);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.wishlist-filters button:hover {
+  background-color: #eaeaea;
+}
+
+.wishlist-filters button.active {
+  background-color: var(--primary-light);
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.wishlist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.wishlist-item {
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.wishlist-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+.wishlist-item-image {
+  height: 180px;
+  width: 100%;
+  background-color: #f1f2f3;
+  position: relative;
+  overflow: hidden;
+}
+
+.wishlist-item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.wishlist-card {
+  background-color: white;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.wishlist-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.wishlist-card-content {
+  padding: 1.2rem;
+}
+
+.wishlist-card h3 {
+  margin: 0 0 0.6rem 0;
+  color: var(--text-dark);
+}
+
+.destination-info,
+.flight-info,
+.hotel-info {
+  margin-bottom: 1rem;
+}
+
+.flight-route,
+.hotel-location {
+  color: var(--text-medium);
+  margin: 0.2rem 0;
+}
+
+.flight-details,
+.hotel-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-light);
+  margin: 0.4rem 0;
+}
+
+.item-price {
+  color: var(--primary);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0.6rem 0;
+}
+
+.item-price span {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  font-weight: normal;
+}
+
+.wishlist-actions {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.view-btn,
+.book-btn {
+  flex: 1;
+  padding: 0.7rem 0;
+  text-align: center;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
+.view-btn {
+  background-color: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+}
+
+.view-btn:hover {
+  background-color: var(--primary-light);
+}
+
+.book-btn {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.book-btn:hover {
+  background-color: var(--primary-dark);
+}
+
+.empty-wishlist {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  color: #666;
+  font-size: 18px;
+}
+
+.empty-icon {
+  font-size: 3rem;
+  color: #ffb74d;
+  margin-bottom: 1.5rem;
+}
+
+.empty-wishlist h2 {
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+
+.empty-wishlist p {
+  color: var(--text-medium);
+  margin-bottom: 2rem;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.browse-btn {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background-color: var(--primary);
+  color: white;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  transition: background-color var(--transition-fast);
+}
+
+.browse-btn:hover {
+  background-color: var(--primary-dark);
+}
+
+/* Custom Header Styling - same as in Home.css */
+.custom-header {
+  width: 100%;
+}
+
+.top-bar {
+  background-color: #f8f9fa;
+  padding: 8px 20px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.top-links {
+  display: flex;
+  gap: 15px;
+}
+
+.top-link {
+  color: #0066cc;
+  text-decoration: none;
+  font-size: 14px;
+  padding: 4px 8px;
+}
+
+.top-link:hover {
+  text-decoration: underline;
+}
+
+.main-bar {
+  background-color: #2196F3;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.site-logo {
+  color: white;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.right-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.utility-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.wishlist-heart {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logout-button {
+  background-color: white;
+  color: #2196F3;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background-color: #f1f1f1;
+}
+
+/* Existing Wishlist styles... */
+
+@media (max-width: 768px) {
+  .wishlist-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .wishlist-filters {
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .wishlist-filters button {
+    white-space: nowrap;
+  }
+
+  .wishlist-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .wishlist-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .wishlist-actions {
+    flex-direction: column;
+  }
+}

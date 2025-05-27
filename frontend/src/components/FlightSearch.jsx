@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import FlightResults from './FlightResults';
 import './FlightSearch.css';
 
 const FlightSearch = ({ onSelectFlight }) => {

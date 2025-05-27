@@ -475,15 +475,88 @@ body {
   color: white;
 }
 
-@media (max-width: 600px) {
-  .deals-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  .deal-image {
-    height: 140px;
-  }
-  /* Styles for the bundle section */
+/* Custom Header Styling */
+.custom-header {
+  width: 100%;
+}
+
+.top-bar {
+  background-color: #f8f9fa;
+  padding: 8px 20px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.top-links {
+  display: flex;
+  gap: 15px;
+}
+
+.top-link {
+  color: #0066cc;
+  text-decoration: none;
+  font-size: 14px;
+  padding: 4px 8px;
+}
+
+.top-link:hover {
+  text-decoration: underline;
+}
+
+.main-bar {
+  background-color: #2196F3;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.site-logo {
+  color: white;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.right-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.utility-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.wishlist-heart {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logout-button {
+  background-color: white;
+  color: #2196F3;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background-color: #f1f1f1;
+}
+
+/* Styles for the bundle section */
 .bundle-section {
   background-color: white;
   padding: 20px;
@@ -537,8 +610,4 @@ body {
 
 .select-btn:hover {
   background-color: #055cc3;
-}
-
-
-
 }

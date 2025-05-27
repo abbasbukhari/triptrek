@@ -1,94 +1,85 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Link, Navigate, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
-import Wishlist from "./components/Wishlist";
-import DestinationDetail from "./components/DestinationDetail";
 import Login from "./components/Login";
-import FlightSearch from "./components/FlightSearch";
-import destinationsData from "./data/destinations.json";
+import Wishlist from "./components/Wishlist";
 import { WishlistProvider } from "./context/WishlistContext";
-import { SearchHistoryProvider } from "./context/SearchHistoryContext"; // Add this import
+import { SearchHistoryProvider } from "./context/SearchHistoryContext";
 import "./App.css";
 
-const App = () => {
+function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  // Check for existing session on app load
+  // Check if user is already logged in on component mount
   useEffect(() => {
-    const userId = sessionStorage.getItem("userId");
-    if (userId) {
+    // Check for token or other auth indicators
+    const token = localStorage.getItem("token");
+    if (token) {
       setLoggedIn(true);
     }
+    setLoading(false);
   }, []);
 
-  // A wrapper for protected routes
-  function RequireAuth({ children }) {
-    let location = useLocation();
-    if (!loggedIn) {
-      // Redirect to /login, but save the current location
-      return <Navigate to="/login" state={{ from: location }} replace />;
-    }
-    return children;
+  if (loading) {
+    return <div className="loading">Loading...</div>;
   }
 
-  // Add logout functionality
-  const handleLogout = () => {
-    sessionStorage.removeItem("userId");
-    sessionStorage.removeItem("username");
-    setLoggedIn(false);
-  };
-
   return (
-    <SearchHistoryProvider> {/* Add this provider wrapper */}
+    <Router>
       <WishlistProvider>
-        <Router>
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/wishlist">Wishlist</Link>
-          </nav>
+        <SearchHistoryProvider>
           <Routes>
-            <Route path="/login" element={<Login setLoggedIn={setLoggedIn} />} />
+            {/* Default route - redirect based on login state */}
             <Route
               path="/"
               element={
-                <RequireAuth>
-                  <Home />
-                </RequireAuth>
+                loggedIn ? (
+                  <Home loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+                ) : (
+                  <Navigate to="/login" replace />
+                )
               }
             />
+
+            <Route
+              path="/login"
+              element={
+                loggedIn ? (
+                  <Navigate to="/" replace />
+                ) : (
+                  <Login setLoggedIn={setLoggedIn} />
+                )
+              }
+            />
+
             <Route
               path="/wishlist"
               element={
-                <RequireAuth>
-                  <Wishlist />
-                </RequireAuth>
+                loggedIn ? (
+                  <Wishlist loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+                ) : (
+                  <Navigate to="/login" replace />
+                )
               }
             />
+
+            {/* Catch all other routes and redirect to login if not logged in */}
             <Route
-              path="/destination/:id"
+              path="*"
               element={
-                <RequireAuth>
-                  <DestinationDetail
-                    destination={destinationsData.find(
-                      (dest) => dest.id === parseInt(window.location.pathname.split("/").pop())
-                    )}
-                  />
-                </RequireAuth>
-              }
-            />
-            <Route
-              path="/flights"
-              element={
-                <RequireAuth>
-                  <FlightSearch />
-                </RequireAuth>
+                loggedIn ? (
+                  <Navigate to="/" replace />
+                ) : (
+                  <Navigate to="/login" replace />
+                )
               }
             />
           </Routes>
-        </Router>
+        </SearchHistoryProvider>
       </WishlistProvider>
-    </SearchHistoryProvider> // {/* Close the provider */}
+    </Router>
   );
-};
+}
 
 export default App;

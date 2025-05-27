@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useWishlist } from "../context/WishlistContext";
 import { useSearchHistory } from "../context/SearchHistoryContext";
 import dealsData from "../data/deals.json";
@@ -9,7 +10,8 @@ import SearchHistory from "../components/SearchHistory";
 import TravelBundle from "../components/TravelBundle";
 import "./Home.css";
 
-const Home = () => {
+const Home = ({ loggedIn, setLoggedIn }) => {
+  const navigate = useNavigate();
   const { wishlist, dispatch } = useWishlist();
   const { dispatch: searchDispatch } = useSearchHistory();
   const [search, setSearch] = useState("");
@@ -27,6 +29,13 @@ const Home = () => {
   const filteredDeals = allDeals.filter((deal) =>
     deal.city.toLowerCase().includes(search.toLowerCase())
   );
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setLoggedIn(false);
+    navigate('/login');
+  };
 
   const handleSearch = () => {
     if (search.trim()) {
@@ -93,21 +102,30 @@ const Home = () => {
 
   return (
     <div className="home">
-      {/* Header with Logo and Navigation */}
-      <div className="skyscanner-header">
-        <div className="logo-bar">
-          <h1 className="logo">TRIPTREK</h1>
+      {/* Custom Header */}
+      <div className="custom-header">
+        <div className="top-bar">
+          <div className="top-links">
+            <Link to="/" className="top-link">Home</Link>
+            <Link to="/wishlist" className="top-link">Wishlist</Link>
+          </div>
         </div>
-        <div className="auth-controls">
-          <button className="help-btn">Help</button>
-          <button className="language-btn">English (US)</button>
-          <button className="currency-btn">C$ CAD</button>
-          <button className="wishlist-btn">❤️</button>
-          <button className="login-btn">Log out</button>
+
+        <div className="main-bar">
+          <Link to="/" className="site-logo">TRIPTREK</Link>
+          <div className="right-controls">
+            <button className="utility-button">Help</button>
+            <button className="utility-button">English (US)</button>
+            <button className="utility-button">C$ CAD</button>
+            <Link to="/wishlist" className="wishlist-heart">❤️</Link>
+            {loggedIn && (
+              <button onClick={handleLogout} className="logout-button">Log out</button>
+            )}
+          </div>
         </div>
       </div>
 
-      {/* Main Navigation Tabs - Add Bundles tab */}
+      {/* Main Navigation Tabs */}
       <div className="main-navigation">
         <div
           className={`nav-tab ${activeTab === "flights" ? "active" : ""}`}
