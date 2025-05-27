@@ -95,7 +95,7 @@ const defaultHotels = [
   }
 ];
 
-const HotelSearch = () => {
+const HotelSearch = ({ onSelectHotel }) => {
   const [destination, setDestination] = useState("");
   const [checkin, setCheckin] = useState("5/24/25");
   const [checkout, setCheckout] = useState("5/31/25");
@@ -164,6 +164,13 @@ const HotelSearch = () => {
     } catch (err) {
       setError(err.message);
       setResults([]);
+    }
+  };
+  
+  // Add a select hotel handler
+  const handleSelectHotel = (hotel) => {
+    if (onSelectHotel) {
+      onSelectHotel(hotel);
     }
   };
   
@@ -268,7 +275,17 @@ const HotelSearch = () => {
                     <span className="price">{hotel.price}</span>
                     <span className="per-night">per night</span>
                   </div>
-                  <button className="view-deal-btn">View Deal</button>
+                  
+                  {/* Change the button to allow bundling */}
+                  <div className="hotel-actions">
+                    <button className="view-deal-btn">View Deal</button>
+                    <button 
+                      onClick={() => handleSelectHotel(hotel)}
+                      className="select-hotel-btn"
+                    >
+                      Add to bundle
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}

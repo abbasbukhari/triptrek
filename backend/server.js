@@ -13,9 +13,13 @@ app.use(cors());         // Enable CORS
 
 // Import route modules
 const loginApi = require('./routes/login-api');
+const bundlesApi = require('./routes/bundles-api');
+const flightsApi = require('./routes/flights-api'); // New import
 
 // Mount all resource routes
 app.use('/api/login', loginApi);
+app.use('/api/bundles', bundlesApi);
+app.use('/api/flights', flightsApi); // New route registration
 
 // Sample route to test server
 app.get('/', (req, res) => {

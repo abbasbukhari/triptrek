@@ -96,4 +96,44 @@
     width: 100%;
     max-width: none;
   }
+  .select-flight-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.select-flight-btn:hover {
+  background-color: #218838;
+
+}
+
+}
+
+.flight-section {
+  margin-bottom: 30px;
+}
+
+.flight-section h3 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
+}
+
+/* For round-trip, we can add a visual separator */
+.flight-section + .flight-section {
+  position: relative;
+}
+
+.flight-section + .flight-section::before {
+  content: '';
+  border-top: 1px dashed #ddd;
+  position: absolute;
+  top: -15px;
+  left: 20px;
+  right: 20px;
 }

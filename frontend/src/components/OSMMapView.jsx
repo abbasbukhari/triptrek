@@ -16,15 +16,13 @@ L.Icon.Default.mergeOptions({
 
 const defaultCenter = [48.8566, 2.3522]; // Paris as default
 
-export default function OSMMapView({ destinations }) {
+export default function OSMMapView({ destinations, center, zoom }) {
   // Center on first destination if available
-  const center =
-    destinations.length && destinations[0].lat && destinations[0].lng
-      ? [destinations[0].lat, destinations[0].lng]
-      : defaultCenter;
+  const mapCenter =
+    center && center.lat && center.lng ? [center.lat, center.lng] : defaultCenter;
 
   return (
-    <MapContainer center={center} zoom={2} style={{ height: "400px", width: "100%" }}>
+    <MapContainer center={mapCenter} zoom={zoom || 2} style={{ height: "400px", width: "100%" }}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="&copy; OpenStreetMap contributors"

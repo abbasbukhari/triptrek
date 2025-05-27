@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './FlightSearch.css';
 
-const FlightSearch = () => {
+const FlightSearch = ({ onSelectFlight }) => {
   const [tripType, setTripType] = useState('roundtrip');
   const [fromAirport, setFromAirport] = useState('');
   const [toAirport, setToAirport] = useState('');
@@ -11,13 +11,16 @@ const FlightSearch = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [flightData, setFlightData] = useState(null);
+  const [searched, setSearched] = useState(false);
 
+  // Update the handleSubmit function to correctly handle the API response
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (fromAirport === toAirport) {
       setError('Departure and arrival airports must be different.');
       return;
     }
+    
     setLoading(true);
     setError('');
     setFlightData(null);
@@ -26,23 +29,37 @@ const FlightSearch = () => {
     if (tripType === 'oneway') {
       url = `/api/flights/oneway?departure_airport_code=${fromAirport}&arrival_airport_code=${toAirport}&departure_date=${departDate}&number_of_adults=1&number_of_children=0&number_of_infants=0&cabin_class=Economy&currency=USD&region=US`;
     } else {
-      url = `/api/flights/roundtrip?departure_airport_code=${fromAirport}&arrival_airport_code=${toAirport}&departure_date=${departDate}&arrival_date=${returnDate}&number_of_adults=1&number_of_childrens=0&number_of_infants=0&cabin_class=Economy&currency=USD&region=US`;
+      url = `/api/flights/roundtrip?departure_airport_code=${fromAirport}&arrival_airport_code=${toAirport}&departure_date=${departDate}&arrival_date=${returnDate}&number_of_adults=1&number_of_children=0&number_of_infants=0&cabin_class=Economy&currency=USD&region=US`;
     }
 
     try {
       const res = await fetch(url);
-      const data = await res.json();
+      
+      // Check if response is OK
       if (!res.ok) {
-        setError(data.error?.message || 'No flights found or API error.');
-      } else if (data.itineraries && data.itineraries.length > 0) {
+        const errorText = await res.text();
+        console.error('Error response:', errorText);
+        throw new Error(`API error: ${res.status}`);
+      }
+      
+      const data = await res.json();
+      console.log('Flight data received:', data);
+      
+      if (data.error) {
+        setError(data.error);
+      } else if ((data.results && data.results.length > 0) || 
+                 (data.outbound && data.outbound.length > 0)) {
         setFlightData(data);
+        setSearched(true);
       } else {
-        setError('No flights found.');
+        setError('No flights found for this route.');
       }
     } catch (err) {
-      setError('Failed to fetch flights: ' + err.message);
+      console.error('Flight search error:', err);
+      setError(`Failed to fetch flights: ${err.message}`);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const airportOptions = [
@@ -51,6 +68,14 @@ const FlightSearch = () => {
     { code: 'JFK', name: 'New York JFK (JFK)' },
     { code: 'LHR', name: 'London Heathrow (LHR)' },
   ];
+
+  const handleSelectFlight = (flight) => {
+    if (onSelectFlight) {
+      onSelectFlight(flight);
+    }
+  };
+
+  console.log('API Key being used:', import.meta.env.VITE_FLIGHT_API_KEY); // For client-side with Vite
 
   return (
     <div className="flight-search-container">
@@ -147,59 +172,166 @@ const FlightSearch = () => {
         </button>
       </form>
       {error && <div style={{ color: 'red' }}>{error}</div>}
-      <ul>
-        {flightData?.itineraries?.slice(0, 3).map((itinerary) => (
-          <li key={itinerary.id} style={{ marginBottom: '1em', border: '1px solid #ccc', padding: '1em' }}>
-            {itinerary.leg_ids.map((legId, idx) => {
-              const leg = flightData.legs && flightData.legs.find(l => l.id === legId);
-              if (!leg) return null;
 
-              const origin = flightData.places && flightData.places.find(p => p.id === leg.origin_place_id);
-              const destination = flightData.places && flightData.places.find(p => p.id === leg.destination_place_id);
-
-              // Get segment for flight number and carrier
-              const segment = flightData.segments && leg.segment_ids && flightData.segments.find(s => s.id === leg.segment_ids[0]);
-              const carrier = flightData.carriers && segment && flightData.carriers.find(c => c.id === segment.marketing_carrier_id);
-
-              // Format times
-              const departureLocal = leg.departure
-                ? new Intl.DateTimeFormat('en-US', {
-                    dateStyle: 'medium',
-                    timeStyle: 'short',
-                    timeZone: origin?.timezone || 'UTC'
-                  }).format(new Date(leg.departure))
-                : "N/A";
-              const arrivalLocal = leg.arrival
-                ? new Intl.DateTimeFormat('en-US', {
-                    dateStyle: 'medium',
-                    timeStyle: 'short',
-                    timeZone: destination?.timezone || 'UTC'
-                  }).format(new Date(leg.arrival))
-                : "N/A";
-
-              // Duration in hours/minutes
-              const durationH = Math.floor((leg.duration || 0) / 60);
-              const durationM = (leg.duration || 0) % 60;
-
-              return (
-                <div key={legId} style={{ marginBottom: '0.5em' }}>
-                  <strong>{idx === 0 ? 'Outbound' : 'Return'} Flight:</strong><br />
-                  <strong>Departure:</strong> {departureLocal} {origin ? `(${origin.name})` : ''}<br />
-                  <strong>Arrival:</strong> {arrivalLocal} {destination ? `(${destination.name})` : ''}<br />
-                  <strong>Airline:</strong> {carrier ? carrier.name : "N/A"}<br />
-                  <strong>Flight Number:</strong> {segment ? segment.marketing_flight_number : "N/A"}<br />
-                  <strong>Stops:</strong> {typeof leg.stop_count === 'number' ? leg.stop_count : "N/A"}<br />
-                  <strong>Duration:</strong> {leg.duration ? `${durationH}h ${durationM}m` : "N/A"}<br />
-                </div>
-              );
-            })}
-            <strong>Price:</strong>{" "}
-            {itinerary.pricing_options && itinerary.pricing_options[0]
-              ? `$${new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(itinerary.pricing_options[0].price.amount)}`
-              : "N/A"}
-          </li>
-        ))}
-      </ul>
+      {/* Flight results display */}
+      {!loading && flightData && (
+        <div className="flight-results">
+          {/* One-way flights */}
+          {flightData.results && (
+            <div className="flight-section">
+              <h3>Available Flights</h3>
+              <div className="flight-list">
+                {flightData.results.map((flight) => (
+                  <div key={flight.id} className="flight-card">
+                    <div className="flight-header">
+                      <span className="airline">{flight.airline}</span>
+                      <span className="flight-number">{flight.flight_number}</span>
+                    </div>
+                    
+                    <div className="flight-details">
+                      <div className="departure">
+                        <div className="time">{new Date(flight.departure.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                        <div className="airport">{flight.departure.airport_code}</div>
+                      </div>
+                      
+                      <div className="flight-duration">
+                        <div className="duration">{flight.duration.hours}h {flight.duration.minutes}m</div>
+                        <div className="line">————✈️————</div>
+                      </div>
+                      
+                      <div className="arrival">
+                        <div className="time">{new Date(flight.arrival.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                        <div className="airport">{flight.arrival.airport_code}</div>
+                      </div>
+                    </div>
+                    
+                    <div className="flight-footer">
+                      <div className="price">${flight.price.amount}</div>
+                      <button 
+                        className="select-flight-btn"
+                        onClick={() => handleSelectFlight({
+                          id: flight.id,
+                          airline: flight.airline,
+                          from: flight.departure.airport_code,
+                          to: flight.arrival.airport_code,
+                          price: `$${flight.price.amount}`,
+                          flight_number: flight.flight_number
+                        })}
+                      >
+                        Select
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          {/* Round-trip outbound flights */}
+          {flightData.outbound && (
+            <div className="flight-section">
+              <h3>Outbound Flights</h3>
+              <div className="flight-list">
+                {flightData.outbound.map((flight) => (
+                  <div key={flight.id} className="flight-card">
+                    <div className="flight-header">
+                      <span className="airline">{flight.airline}</span>
+                      <span className="flight-number">{flight.flight_number}</span>
+                    </div>
+                    
+                    <div className="flight-details">
+                      <div className="departure">
+                        <div className="time">{new Date(flight.departure.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                        <div className="airport">{flight.departure.airport_code}</div>
+                      </div>
+                      
+                      <div className="flight-duration">
+                        <div className="duration">{flight.duration.hours}h {flight.duration.minutes}m</div>
+                        <div className="line">————✈️————</div>
+                      </div>
+                      
+                      <div className="arrival">
+                        <div className="time">{new Date(flight.arrival.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                        <div className="airport">{flight.arrival.airport_code}</div>
+                      </div>
+                    </div>
+                    
+                    <div className="flight-footer">
+                      <div className="price">${flight.price.amount}</div>
+                      <button 
+                        className="select-flight-btn"
+                        onClick={() => handleSelectFlight({
+                          id: flight.id,
+                          airline: flight.airline,
+                          from: flight.departure.airport_code,
+                          to: flight.arrival.airport_code,
+                          price: `$${flight.price.amount}`,
+                          flight_number: flight.flight_number,
+                          type: 'outbound'
+                        })}
+                      >
+                        Select
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          {/* Round-trip return flights */}
+          {flightData.return && (
+            <div className="flight-section">
+              <h3>Return Flights</h3>
+              <div className="flight-list">
+                {flightData.return.map((flight) => (
+                  <div key={flight.id} className="flight-card">
+                    <div className="flight-header">
+                      <span className="airline">{flight.airline}</span>
+                      <span className="flight-number">{flight.flight_number}</span>
+                    </div>
+                    
+                    <div className="flight-details">
+                      <div className="departure">
+                        <div className="time">{new Date(flight.departure.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                        <div className="airport">{flight.departure.airport_code}</div>
+                      </div>
+                      
+                      <div className="flight-duration">
+                        <div className="duration">{flight.duration.hours}h {flight.duration.minutes}m</div>
+                        <div className="line">————✈️————</div>
+                      </div>
+                      
+                      <div className="arrival">
+                        <div className="time">{new Date(flight.arrival.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                        <div className="airport">{flight.arrival.airport_code}</div>
+                      </div>
+                    </div>
+                    
+                    <div className="flight-footer">
+                      <div className="price">${flight.price.amount}</div>
+                      <button 
+                        className="select-flight-btn"
+                        onClick={() => handleSelectFlight({
+                          id: flight.id,
+                          airline: flight.airline,
+                          from: flight.departure.airport_code,
+                          to: flight.arrival.airport_code,
+                          price: `$${flight.price.amount}`,
+                          flight_number: flight.flight_number,
+                          type: 'return'
+                        })}
+                      >
+                        Select
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
