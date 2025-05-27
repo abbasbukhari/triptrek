@@ -104,7 +104,10 @@ const handleSearchChange = (e) => {
       ) : (
         <div className="map-list-container" style={{ display: "flex", gap: "2rem" }}>
           <div style={{ flex: 1 }}>
-            <OSMMapView destinations={filteredDeals} />
+            <OSMMapView destinations={filteredDeals}
+              center={mapCenter}
+  zoom={mapZoom} />
+            
           </div>
         </div>
       )}
